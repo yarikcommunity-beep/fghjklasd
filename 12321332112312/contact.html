@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="ru"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Контакты - Doubleer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #999999;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--pure-black);
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .white-glow {
+            text-shadow: 0 0 10px var(--pure-white), 0 0 20px var(--pure-white), 0 0 30px var(--pure-white);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--pure-white);
+            text-shadow: 0 0 10px var(--pure-white);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--pure-white);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--pure-white);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .contact-card {
+            background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray));
+            border: 1px solid var(--pure-white);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.4);
+        }
+        
+        .telegram-link {
+            background: linear-gradient(45deg, var(--pure-white), var(--light-gray));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+        
+        .telegram-link:hover {
+            text-shadow: 0 0 20px var(--pure-white);
+            transform: scale(1.05);
+        }
+        
+        .star-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background: var(--pure-white);
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .anonymous-symbol {
+            font-size: 2rem;
+            color: var(--pure-white);
+            text-shadow: 0 0 10px var(--pure-white);
+            animation: symbolPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes symbolPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+    </style>
+<script src="https://statics.moonshot.cn/sdk/preview-widgets.min.js" defer=""></script><script src="https://statics.moonshot.cn/sdk/preview-widgets.min.js" defer=""></script></head>
+<body class="bg-black text-white no-select">
+    <!-- Звездное небо -->
+    <div id="star-field" class="star-field"></div>
+    
+    <!-- Навигация -->
+    <nav class="fixed top-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm border-b border-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="orbitron text-2xl font-bold white-glow">
+                    DOUBLEER
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="nav-link">Главная</a>
+                    <a href="about.html" class="nav-link">О проекте</a>
+                    <a href="contact.html" class="nav-link">Контакты</a>
+                    <a href="demo.html" class="nav-link">Демо</a>
+                </div>
+                <div class="text-white cursor-pointer">🎭</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="pt-20 min-h-screen">
+        <div class="container mx-auto px-6 py-12">
+            <!-- Заголовок -->
+            <div class="text-center mb-16">
+                <h1 class="orbitron text-5xl font-black mb-6 white-glow">
+                    КОНТАКТЫ
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Свяжитесь с нами через защищенные каналы связи
+                </p>
+            </div>
+
+            <!-- Основная контактная информация -->
+            <div class="max-w-4xl mx-auto mb-16">
+                <div class="contact-card p-8 rounded-lg text-center mb-8">
+                    <div class="text-6xl mb-6 pulse-animation">🎭</div>
+                    <h2 class="orbitron text-3xl font-bold mb-4 text-white">DOUBLEER</h2>
+                    <div class="text-2xl text-white mb-4">Анонимное движение</div>
+                    <div class="text-lg text-gray-300 mb-6">
+                        Мы не организация. Мы - идея. Мы - множество.
+                    </div>
+                    
+                    <!-- Telegram контакт -->
+                    <div class="bg-gray-900 p-6 rounded-lg border border-white">
+                        <h3 class="orbitron text-2xl font-bold mb-4 text-white">Защищенная связь</h3>
+                        <div class="text-4xl mb-4">📱</div>
+                        <a href="https://t.me/qeqeeeee" target="_blank" class="telegram-link text-2xl font-bold block mb-2">
+                            @qeqeeeee
+                        </a>
+                        <p class="text-gray-300">
+                            Telegram - защищенный канал связи<br/>
+                            Отвечу на вопросы о проекте Doubleer
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Информация о проекте -->
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <div class="contact-card p-6 rounded-lg">
+                    <h3 class="orbitron text-2xl font-bold mb-4 text-white">📅 ДАТА АКТИВАЦИИ</h3>
+                    <div class="text-center">
+                        <div class="text-4xl font-black text-white mb-2">31.12.2025</div>
+                        <div class="text-xl text-white mb-2">12:00 по московскому времени</div>
+                        <p class="text-gray-300">
+                            Полная активация всех функций Doubleer
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="contact-card p-6 rounded-lg">
+                    <h3 class="orbitron text-2xl font-bold mb-4 text-white">🎯 НАША МИССИЯ</h3>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Защита цифровых прав и свобод</li>
+                        <li>• Обеспечение анонимности пользователей</li>
+                        <li>• Создание децентрализованного сообщества</li>
+                        <li>• Продвижение открытых технологий</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Социальные сети и связь -->
+            <div class="max-w-4xl mx-auto mb-16">
+                <h2 class="orbitron text-3xl font-bold text-center mb-12 white-glow">КАНАЛЫ СВЯЗИ</h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="contact-card p-6 rounded-lg text-center">
+                        <div class="text-4xl mb-4">💬</div>
+                        <h3 class="orbitron text-xl font-bold mb-2 text-white">Telegram</h3>
+                        <p class="text-gray-300 mb-4">
+                            Защищенный канал для связи и обсуждений
+                        </p>
+                        <a href="https://t.me/qeqeeeee" target="_blank" class="inline-block bg-white text-black px-6 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+                            НАПИСАТЬ
+                        </a>
+                    </div>
+                    
+                    <div class="contact-card p-6 rounded-lg text-center">
+                        <div class="text-4xl mb-4">🌐</div>
+                        <h3 class="orbitron text-xl font-bold mb-2 text-white">GitHub</h3>
+                        <p class="text-gray-300 mb-4">
+                            Открытый код и техническая документация
+                        </p>
+                        <button onclick="alert(&#39;GitHub репозиторий будет доступен после активации&#39;)" class="inline-block bg-gray-700 text-white px-6 py-2 rounded-lg font-bold hover:bg-gray-600 transition-colors">
+                            СКОРО
+                        </button>
+                    </div>
+                    
+                    <div class="contact-card p-6 rounded-lg text-center">
+                        <div class="text-4xl mb-4">📧</div>
+                        <h3 class="orbitron text-xl font-bold mb-2 text-white">Secure Email</h3>
+                        <p class="text-gray-300 mb-4">
+                            Защищенная почта для важных сообщений
+                        </p>
+                        <button onclick="alert(&#39;Secure email будет доступен после активации&#39;)" class="inline-block bg-gray-700 text-white px-6 py-2 rounded-lg font-bold hover:bg-gray-600 transition-colors">
+                            СКОРО
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Инструкции по безопасности -->
+            <div class="max-w-2xl mx-auto mb-16">
+                <div class="contact-card p-8 rounded-lg">
+                    <h3 class="orbitron text-2xl font-bold text-center mb-6 text-white">ПРАВИЛА БЕЗОПАСНОСТИ</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <div class="flex items-start space-x-3">
+                            <div class="text-white font-bold">1.</div>
+                            <p>Никогда не раскрывайте личную информацию в анонимных каналах</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="text-white font-bold">2.</div>
+                            <p>Используйте VPN и защищенные браузеры для доступа</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="text-white font-bold">3.</div>
+                            <p>Проверяйте шифрование перед передачей важных данных</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="text-white font-bold">4.</div>
+                            <p>Будьте осторожны с файлами и ссылками от неизвестных источников</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="text-white font-bold">5.</div>
+                            <p>Помните: анонимность - это ответственность</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Анонимная форма -->
+            <div class="max-w-2xl mx-auto">
+                <div class="contact-card p-8 rounded-lg">
+                    <h3 class="orbitron text-2xl font-bold text-center mb-6 text-white">АНОНИМНОЕ СООБЩЕНИЕ</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label class="block text-gray-300 mb-2">Псевдоним (необязательно)</label>
+                            <input type="text" class="w-full bg-gray-800 border border-white rounded-lg px-4 py-2 text-white focus:outline-none focus:border-gray-400" placeholder="Ваш псевдоним"/>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 mb-2">Тема</label>
+                            <input type="text" class="w-full bg-gray-800 border border-white rounded-lg px-4 py-2 text-white focus:outline-none focus:border-gray-400" placeholder="Тема сообщения"/>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 mb-2">Сообщение</label>
+                            <textarea rows="4" class="w-full bg-gray-800 border border-white rounded-lg px-4 py-2 text-white focus:outline-none focus:border-gray-400" placeholder="Ваше анонимное сообщение"></textarea>
+                        </div>
+                        <button type="button" onclick="alert(&#39;Форма временно недоступна. Используйте Telegram: @qeqeeeee&#39;)" class="w-full bg-white text-black py-3 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+                            ОТПРАВИТЬ АНОНИМНО
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="border-t border-gray-800 py-6 mt-20">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                © 2025 Doubleer | Создатель: @qeqeeeee | Мы не забываем. Мы не прощаем. Мы не спим.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Инициализация звездного неба
+        function initStarField() {
+            const starField = document.getElementById('star-field');
+            const numStars = 100;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                
+                starField.appendChild(star);
+            }
+        }
+        
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            initStarField();
+            
+            // Анимация карточек контактов
+            const contactCards = document.querySelectorAll('.contact-card');
+            contactCards.forEach((card, index) => {
+                anime({
+                    targets: card,
+                    translateY: [50, 0],
+                    opacity: [0, 1],
+                    duration: 800,
+                    delay: index * 100,
+                    easing: 'easeOutQuad'
+                });
+            });
+        });
+    </script>
+
+</body></html>

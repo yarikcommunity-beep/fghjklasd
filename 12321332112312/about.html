@@ -1,0 +1,343 @@
+<!DOCTYPE html><html lang="ru"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>О проекте - Doubleer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #999999;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--pure-black);
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .white-glow {
+            text-shadow: 0 0 10px var(--pure-white), 0 0 20px var(--pure-white), 0 0 30px var(--pure-white);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--pure-white);
+            text-shadow: 0 0 10px var(--pure-white);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--pure-white);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--pure-white);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray));
+            border: 1px solid var(--pure-white);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+        }
+        
+        .anonymous-icon {
+            background: linear-gradient(45deg, var(--pure-white), var(--light-gray));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .star-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background: var(--pure-white);
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .anonymous-quote {
+            border-left: 4px solid var(--pure-white);
+            background: rgba(255, 255, 255, 0.05);
+            font-style: italic;
+        }
+    </style>
+<script src="https://statics.moonshot.cn/sdk/preview-widgets.min.js" defer=""></script><script src="https://statics.moonshot.cn/sdk/preview-widgets.min.js" defer=""></script></head>
+<body class="bg-black text-white no-select">
+    <!-- Звездное небо -->
+    <div id="star-field" class="star-field"></div>
+    
+    <!-- Навигация -->
+    <nav class="fixed top-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm border-b border-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="orbitron text-2xl font-bold white-glow">
+                    DOUBLEER
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="nav-link">Главная</a>
+                    <a href="about.html" class="nav-link">О проекте</a>
+                    <a href="contact.html" class="nav-link">Контакты</a>
+                    <a href="demo.html" class="nav-link">Демо</a>
+                </div>
+                <div class="text-white cursor-pointer">🎭</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="pt-20 min-h-screen">
+        <div class="container mx-auto px-6 py-12">
+            <!-- Заголовок -->
+            <div class="text-center mb-16">
+                <h1 class="orbitron text-5xl font-black mb-6 white-glow">
+                    О ПРОЕКТЕ
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Doubleer - это движение, объединяющее людей через анонимность и технологии
+                </p>
+            </div>
+
+            <!-- Основная информация -->
+            <div class="grid md:grid-cols-2 gap-12 mb-16">
+                <div class="space-y-6">
+                    <h2 class="orbitron text-3xl font-bold mb-6 text-white">Что такое Doubleer?</h2>
+                    <p class="text-gray-300 leading-relaxed">
+                        Doubleer - это анонимный проект, созданный для объединения людей, верящих в свободу 
+                        информации, право на анонимность и силу коллективного разума. Мы не являемся группой, 
+                        мы - идея.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Наш проект использует передовые веб-технологии для создания пространства, где 
+                        анонимность становится формой самовыражения и защиты личных свобод.
+                    </p>
+                    
+                    <div class="anonymous-quote p-4 rounded-lg">
+                        <p class="text-white">
+                            &#34;Мы не забываем. Мы не прощаем. Мы не спим.&#34;
+                        </p>
+                        <p class="text-gray-400 text-sm mt-2">- Девиз анонимных</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <h2 class="orbitron text-3xl font-bold mb-6 text-white">Наши принципы</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="anonymous-icon text-3xl">🎭</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-white">Анонимность</h3>
+                                <p class="text-gray-400">Право на приватность и защиту личности</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="anonymous-icon text-3xl">🔗</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-white">Свобода информации</h3>
+                                <p class="text-gray-400">Открытый доступ к знаниям и данным</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="anonymous-icon text-3xl">⚡</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-white">Технологическая свобода</h3>
+                                <p class="text-gray-400">Использование технологий для блага общества</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="anonymous-icon text-3xl">🌐</div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-white">Глобальное единство</h3>
+                                <p class="text-gray-400">Объединение людей без границ и ограничений</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Технологии -->
+            <div class="mb-16">
+                <h2 class="orbitron text-3xl font-bold text-center mb-12 white-glow">Технологическая основа</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="info-card p-6 rounded-lg">
+                        <div class="text-4xl mb-4">🎨</div>
+                        <h3 class="orbitron text-xl font-bold mb-2 text-white">Визуальные эффекты</h3>
+                        <ul class="text-gray-300 space-y-1">
+                            <li>• Anime.js для плавных анимаций</li>
+                            <li>• PIXI.js для WebGL эффектов</li>
+                            <li>• P5.js для генеративной графики</li>
+                            <li>• Черно-белая эстетика</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card p-6 rounded-lg">
+                        <div class="text-4xl mb-4">💻</div>
+                        <h3 class="orbitron text-xl font-bold mb-2 text-white">Веб-технологии</h3>
+                        <ul class="text-gray-300 space-y-1">
+                            <li>• HTML5 Canvas для рисования</li>
+                            <li>• CSS3 анимации и трансформации</li>
+                            <li>• JavaScript ES6+</li>
+                            <li>• Адаптивный дизайн</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card p-6 rounded-lg">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h3 class="orbitron text-xl font-bold mb-2 text-white">Интерактивность</h3>
+                        <ul class="text-gray-300 space-y-1">
+                            <li>• Параллакс эффекты</li>
+                            <li>• Hover анимации</li>
+                            <li>• Система частиц</li>
+                            <li>• Кроссбраузерность</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Цели проекта -->
+            <div class="mb-16">
+                <h2 class="orbitron text-3xl font-bold text-center mb-12 white-glow">Наши цели</h2>
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <div class="bg-gray-900 p-6 rounded-lg border border-white">
+                                <h3 class="orbitron text-xl font-bold mb-3 text-white">🎯 Миссия</h3>
+                                <p class="text-gray-300">
+                                    Создание платформы для анонимного обмена информацией и идеями, 
+                                    защищенной от цензуры и контроля.
+                                </p>
+                            </div>
+                            
+                            <div class="bg-gray-900 p-6 rounded-lg border border-white">
+                                <h3 class="orbitron text-xl font-bold mb-3 text-white">📚 Образование</h3>
+                                <p class="text-gray-300">
+                                    Просвещение людей о правах на цифровую приватность и методах 
+                                    защиты личной информации в современном мире.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-gray-900 p-6 rounded-lg border border-white">
+                                <h3 class="orbitron text-xl font-bold mb-3 text-white">🌐 Сообщество</h3>
+                                <p class="text-gray-300">
+                                    Формирование глобального сообщества единомышленников, 
+                                    верящих в свободу и анонимность как основные права человека.
+                                </p>
+                            </div>
+                            
+                            <div class="bg-gray-900 p-6 rounded-lg border border-white">
+                                <h3 class="orbitron text-xl font-bold mb-3 text-white">🔧 Инновации</h3>
+                                <p class="text-gray-300">
+                                    Разработка и внедрение новых технологий для обеспечения 
+                                    анонимности и безопасности в цифровом пространстве.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Дата запуска -->
+            <div class="text-center">
+                <div class="bg-gradient-to-r from-gray-900 to-gray-700 p-8 rounded-lg border-2 border-white">
+                    <h2 class="orbitron text-3xl font-bold mb-4 white-glow">ДАТА ЗАПУСКА</h2>
+                    <div class="text-6xl font-black text-white mb-4">31.12.2025</div>
+                    <div class="text-2xl text-white mb-2">12:00 по московскому времени</div>
+                    <p class="text-gray-300">
+                        Присоединяйтесь к движению Doubleer в этот знаменательный день!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="border-t border-gray-800 py-6 mt-20">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                © 2025 Doubleer | Создатель: @qeqeeeee | Мы не забываем. Мы не прощаем. Мы не спим.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Инициализация звездного неба
+        function initStarField() {
+            const starField = document.getElementById('star-field');
+            const numStars = 100;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                
+                starField.appendChild(star);
+            }
+        }
+        
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            initStarField();
+            
+            // Анимация карточек информации
+            const infoCards = document.querySelectorAll('.info-card');
+            infoCards.forEach((card, index) => {
+                anime({
+                    targets: card,
+                    translateY: [50, 0],
+                    opacity: [0, 1],
+                    duration: 800,
+                    delay: index * 200,
+                    easing: 'easeOutQuad'
+                });
+            });
+        });
+    </script>
+
+</body></html>

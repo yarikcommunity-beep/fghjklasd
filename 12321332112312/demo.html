@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="ru"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Демо - Doubleer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #999999;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--pure-black);
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .white-glow {
+            text-shadow: 0 0 10px var(--pure-white), 0 0 20px var(--pure-white), 0 0 30px var(--pure-white);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--pure-white);
+            text-shadow: 0 0 10px var(--pure-white);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--pure-white);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--pure-white);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .demo-card {
+            background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray));
+            border: 1px solid var(--pure-white);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.4);
+        }
+        
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-element:hover {
+            transform: scale(1.1);
+        }
+        
+        .particle-demo {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--pure-white);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .geometric-demo {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, var(--pure-black), var(--dark-gray));
+            border: 3px solid var(--pure-white);
+            box-shadow: 0 0 30px var(--pure-white);
+            animation: rotate 15s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .anonymous-mask-demo {
+            width: 120px;
+            height: 120px;
+            background: var(--pure-black);
+            border: 3px solid var(--pure-white);
+            border-radius: 50%;
+            position: relative;
+            animation: maskFloat 6s ease-in-out infinite;
+        }
+        
+        .anonymous-mask-demo::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 20%;
+            width: 12px;
+            height: 24px;
+            background: var(--pure-white);
+            border-radius: 50%;
+            box-shadow: 48px 0 0 var(--pure-white);
+        }
+        
+        .anonymous-mask-demo::after {
+            content: '';
+            position: absolute;
+            bottom: 25%;
+            left: 35%;
+            width: 30%;
+            height: 2px;
+            background: var(--pure-white);
+            border-radius: 2px;
+        }
+        
+        @keyframes maskFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        .star-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background: var(--pure-white);
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+    </style>
+<script src="https://statics.moonshot.cn/sdk/preview-widgets.min.js" defer=""></script><script src="https://statics.moonshot.cn/sdk/preview-widgets.min.js" defer=""></script></head>
+<body class="bg-black text-white no-select">
+    <!-- Звездное небо -->
+    <div id="star-field" class="star-field"></div>
+    
+    <!-- Навигация -->
+    <nav class="fixed top-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm border-b border-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="orbitron text-2xl font-bold white-glow">
+                    DOUBLEER
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="nav-link">Главная</a>
+                    <a href="about.html" class="nav-link">О проекте</a>
+                    <a href="contact.html" class="nav-link">Контакты</a>
+                    <a href="demo.html" class="nav-link">Демо</a>
+                </div>
+                <div class="text-white cursor-pointer">🎭</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="pt-20 min-h-screen">
+        <div class="container mx-auto px-6 py-12">
+            <!-- Заголовок -->
+            <div class="text-center mb-16">
+                <h1 class="orbitron text-5xl font-black mb-6 white-glow">
+                    ДЕМОНСТРАЦИЯ
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Тестируйте анонимные технологии Doubleer
+                </p>
+            </div>
+
+            <!-- Интерактивные элементы -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Геометрическая фигура -->
+                <div class="demo-card p-6 rounded-lg text-center">
+                    <h3 class="orbitron text-xl font-bold mb-4 text-white">ГЕОМЕТРИЯ</h3>
+                    <div class="flex justify-center mb-4">
+                        <div class="geometric-demo interactive-element" id="geometric-demo"></div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Наведите курсор для активации
+                    </p>
+                    <button onclick="activateGeometric()" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+                        АКТИВИРОВАТЬ
+                    </button>
+                </div>
+
+                <!-- Маска анонимности -->
+                <div class="demo-card p-6 rounded-lg text-center">
+                    <h3 class="orbitron text-xl font-bold mb-4 text-white">АНОНИМНОСТЬ</h3>
+                    <div class="flex justify-center mb-4">
+                        <div class="anonymous-mask-demo interactive-element" id="anonymous-mask-demo">
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Кликните для изменения анимации
+                    </p>
+                    <button onclick="changeMaskAnimation()" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+                        ИЗМЕНИТЬ
+                    </button>
+                </div>
+
+                <!-- Частицы -->
+                <div class="demo-card p-6 rounded-lg text-center">
+                    <h3 class="orbitron text-xl font-bold mb-4 text-white">СИСТЕМА ЧАСТИЦ</h3>
+                    <div class="h-24 bg-gray-900 rounded-lg mb-4 relative overflow-hidden" id="particle-container">
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-500">
+                            Нажмите для создания частиц
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Интерактивная система частиц
+                    </p>
+                    <button onclick="createParticleExplosion()" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+                        ВЗРЫВ
+                    </button>
+                </div>
+
+                <!-- Таймер -->
+                <div class="demo-card p-6 rounded-lg text-center">
+                    <h3 class="orbitron text-xl font-bold mb-4 text-white">ТАЙМЕР</h3>
+                    <div class="text-3xl font-bold text-white mb-4" id="demo-timer">00:00:00</div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Демонстрация таймера обратного отсчета
+                    </p>
+                    <button onclick="startDemoTimer()" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+                        СТАРТ
+                    </button>
+                </div>
+
+                <!-- Звезды -->
+                <div class="demo-card p-6 rounded-lg text-center">
+                    <h3 class="orbitron text-xl font-bold mb-4 text-white">ЗВЕЗДНОЕ НЕБО</h3>
+                    <div class="h-24 bg-black rounded-lg mb-4 relative overflow-hidden border border-white" id="mini-star-field">
+                        <!-- Мини-звездное небо -->
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Генерация звезд с анимацией
+                    </p>
+                    <button onclick="generateMiniStars()" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+                        ГЕНЕРИРОВАТЬ
+                    </button>
+                </div>
+
+                <!-- Анимация -->
+                <div class="demo-card p-6 rounded-lg text-center">
+                    <h3 class="orbitron text-xl font-bold mb-4 text-white">АНИМАЦИЯ</h3>
+                    <div class="h-24 bg-gray-900 rounded-lg mb-4 relative overflow-hidden flex items-center justify-center" id="animation-demo">
+                        <div class="w-8 h-8 bg-white rounded-full" id="animated-ball"></div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Примеры сложных анимаций
+                    </p>
+                    <button onclick="playAnimation()" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+                        ВОСПРОИЗВЕСТИ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Тестовая зона -->
+            <div class="max-w-4xl mx-auto mb-16">
+                <h2 class="orbitron text-3xl font-bold text-center mb-12 white-glow">ТЕСТОВАЯ ЗОНА</h2>
+                
+                <div class="demo-card p-8 rounded-lg">
+                    <h3 class="orbitron text-2xl font-bold text-center mb-6 text-white">ИНТЕРАКТИВНАЯ ПАНЕЛЬ</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-lg font-bold mb-4 text-white">Управление эффектами</h4>
+                            <div class="space-y-3">
+                                <button onclick="toggleStars()" class="w-full bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-500 transition-colors">
+                                    ВКЛ/ВЫКЛ ЗВЕЗДЫ
+                                </button>
+                                <button onclick="createCometShower()" class="w-full bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-500 transition-colors">
+                                    ДОЖДЬ ИЗ КОМЕТ
+                                </button>
+                                <button onclick="activateSpiral()" class="w-full bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-500 transition-colors">
+                                    СПИРАЛЬНЫЙ ВИХРЬ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-bold mb-4 text-white">Настройки</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-gray-300 mb-1">Скорость анимации</label>
+                                    <input type="range" min="0.5" max="3" step="0.1" value="1" class="w-full" id="speed-slider" onchange="changeAnimationSpeed(this.value)"/>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 mb-1">Яркость</label>
+                                    <input type="range" min="0.3" max="1" step="0.1" value="0.8" class="w-full" id="brightness-slider" onchange="changeBrightness(this.value)"/>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 mb-1">Количество частиц</label>
+                                    <input type="range" min="10" max="100" step="10" value="50" class="w-full" id="particles-slider" onchange="changeParticleCount(this.value)"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Статистика -->
+            <div class="max-w-2xl mx-auto">
+                <div class="demo-card p-6 rounded-lg">
+                    <h3 class="orbitron text-2xl font-bold text-center mb-6 text-white">СТАТИСТИКА</h3>
+                    <div class="grid grid-cols-2 gap-6 text-center">
+                        <div>
+                            <div class="text-3xl font-bold text-white" id="clicks-count">0</div>
+                            <div class="text-gray-400">Кликов</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-white" id="particles-count">0</div>
+                            <div class="text-gray-400">Частиц</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-white" id="animations-count">0</div>
+                            <div class="text-gray-400">Анимаций</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-white" id="time-spent">0</div>
+                            <div class="text-gray-400">Секунд</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="border-t border-gray-800 py-6 mt-20">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                © 2025 Doubleer | Создатель: @qeqeeeee | Мы не забываем. Мы не прощаем. Мы не спим.
+            </p>
+        </div>
+    </footer>
+
+    <script src="demo.js"></script>
+
+</body></html>
